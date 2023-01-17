@@ -7,4 +7,4 @@ Description: Allows the user to specify a site and select the forms, buttons, an
 ```
 
 # Additional Information
-Made with Puppeteer
+Made with Puppeteer - https://pptr.dev/
