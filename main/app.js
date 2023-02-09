@@ -6,7 +6,8 @@ const { Console } = require('console');
  * Created by Jeanmarco Allain; Jan 2023
  * Eventually, user will be able to insert their own URL.
  */
-const webpage="https://secure.wufoo.com/gallery/install/template/462/";
+
+const webpage="https://myanimelist.net/register.php";
 
 (async () => {
     const browser = await puppeteer.launch({headless: false}); // should it be headless in the future?
@@ -21,9 +22,25 @@ const webpage="https://secure.wufoo.com/gallery/install/template/462/";
     console.log('Done waiting for website');
     
     // FIND all elements of type INPUT.
-    const textboxes = await page.$$('input');
-    for await (const item of textboxes){
-        await item.type('test');
+    // INPUT TYPES: https://www.w3schools.com/html/html_form_input_types.asp
+    const foundInputElements = await page.$$('input');
+    for await (const element of foundInputElements){
+      // Get the type of the input element; arrow func controls what is returned.
+      const getItemType = await page.evaluate(item => item.type, element);
+      
+      // How to process the specific input element
+      if(getItemType == "email"){
+        console.log("Filling out email input");
+        await element.type('Email Here');
+      }
+      else if (getItemType == "password"){
+        console.log("Filling out password input");
+        await element.type('Password Here');
+      }
+      else if (getItemType == "text"){
+        console.log("Filling out text input");
+        await element.type('Text here');
+      }
     }
 
 
